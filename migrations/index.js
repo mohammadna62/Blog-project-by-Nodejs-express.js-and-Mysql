@@ -2,6 +2,7 @@ const db = require("./../db");
 const fs = require("fs");
 const path = require("path");
 const migrate = async () => {
+  const connection = await db.getConnection();
   const createUsersTableSql = fs.readFileSync(
     path.resolve(__dirname, "./users-ddl.sql"),
     "utf8",
@@ -19,14 +20,19 @@ const migrate = async () => {
     path.resolve(__dirname, "./articles-tags-ddl.sql"),
     "utf8",
   );
+  await connection.beginTransaction();
   try {
-    db.query(createUsersTableSql);
-    db.query(createArticlesTableSql);
-    db.query(createTagsTableSql);
-    db.query(createArticleTagsTableSql);
+    await connection.query(createUsersTableSql);
+    await connection.query(createArticlesTableSql);
+    await connection.query(createTagsTableSql);
+    await connection.query(createArticleTagsTableSql);
+    await connection.commit();
   } catch (err) {
-    throw err;
+    await connection.rollback()
   }
 };
 
-migrate();
+migrate().then(()=>{
+    console.log(`Migration ran successfully`);
+    
+}).catch(()=>db.end);
