@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+        "dev":"dotenv -e .env nodemon server.js",
         "migrate":"dotenv -e .env node ./migrations/index.js"
        },
   "keywords": [],
