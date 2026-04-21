@@ -12,7 +12,8 @@ const create = async ({ name, username, email, password }) => {
     password,
   ]);
   const selectMainUser = "select * from users where id=? ";
-  const user = await db.execute(selectMainUser, [insertedUser.insertedId]);
+  const user = await db.execute(selectMainUser, [insertedUser.insertId]);
+
   return user[0][0];
 };
 const findByUsername = async (username) => {
