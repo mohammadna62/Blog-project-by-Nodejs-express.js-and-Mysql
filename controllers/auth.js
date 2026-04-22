@@ -6,7 +6,6 @@ const configs = require("./../configs");
 exports.register = async (req, res, next) => {
   try {
     const { name, username, email, password } = req.body;
-    //*  Validation
 
     const hashedPassword = await bcrypt.hash(password, 12);
     const user = await User.create({
@@ -43,7 +42,7 @@ exports.register = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
   const { username, password } = req.body;
-  //*Validation
+
   const user = await User.findByUsername(username);
   if (!user) {
     return res.status(401).json({ message: "Invalid Username or Password " });
@@ -53,25 +52,25 @@ exports.login = async (req, res, next) => {
     return res.status(401).json({ message: "Invalid Username or Password " });
   }
   const accessToken = jwt.sign(
-      { id: user.id, role: user.role },
-      configs.auth.accessTokenSecretKey,
-      {
-        expiresIn: configs.auth.accessTokenExpiresInSeconds + "s",
-      },
-    );
-    const refreshToken = jwt.sign(
-      { id: user.id, role: user.role },
-      configs.auth.refreshTokenSecretKey,
-      {
-        expiresIn: configs.auth.refreshTokenExpiresInSeconds + "s",
-      },
-    );
-    const hashedRefreshToken = await bcrypt.hash(refreshToken, 12);
-    //! use below codes for api base project
-    return res.status(201).json({
-      accessToken,
-      refreshToken: hashedRefreshToken,
-    });
+    { id: user.id, role: user.role },
+    configs.auth.accessTokenSecretKey,
+    {
+      expiresIn: configs.auth.accessTokenExpiresInSeconds + "s",
+    },
+  );
+  const refreshToken = jwt.sign(
+    { id: user.id, role: user.role },
+    configs.auth.refreshTokenSecretKey,
+    {
+      expiresIn: configs.auth.refreshTokenExpiresInSeconds + "s",
+    },
+  );
+  const hashedRefreshToken = await bcrypt.hash(refreshToken, 12);
+  //! use below codes for api base project
+  return res.status(201).json({
+    accessToken,
+    refreshToken: hashedRefreshToken,
+  });
 };
 
 exports.refresh = async (req, res, next) => {};
