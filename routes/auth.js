@@ -12,6 +12,8 @@ router.route('/refresh').post(controller.refresh)
 router.route('/me').get(controller.getMe)
 router.route('/logout').post(controller.logout)
 
-
+router.get('/',(req , res)=>{
+    res.render("index.ejs")
+})
 
 module.exports = router;
