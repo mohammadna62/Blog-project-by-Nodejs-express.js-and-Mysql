@@ -10,17 +10,26 @@ const articlesRoutes = require('./routes/articles');
 
 const app = express();
 
+//* Enables CORS for cross-origin requests (allows frontend to access this API)
 app.use(cors())
+
+//* Use for Pars Json
 app.use(express.json())
 app.use(session({
     secret:"Secret Key",
     resave:false,
     saveUninitialized:false,
 }))
-app.use(flash())
-app.use(cookieParser())
 
+//* By this Package , Show Message on Ejs
+app.use(flash())
+
+//* This package for Pars Cookie and Cookie Manager
+app.use(cookieParser()) 
+
+//* To Get req.body Data
 app.use(express.urlencoded({extended:true}))
+
 //! '/' going to public
 app.use(express.static(path.resolve(__dirname,"public"))) 
 //! '/css' going to public/css
@@ -30,6 +39,7 @@ app.use("/js",express.static(path.resolve(__dirname,"public/js")))
 app.use("/fonts",express.static(path.resolve(__dirname,"public/fonts")))
 app.use("/images",express.static(path.resolve(__dirname,"public/images")))
 
+//* Ejs Template Engine configs
 app.set("view engine","ejs")
 app.set("views",path.join(__dirname,"views"))
 
