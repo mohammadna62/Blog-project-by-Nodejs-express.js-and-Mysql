@@ -40,20 +40,26 @@ exports.register = async (req, res, next) => {
   }
 };
 
-exports.showLoginView = (req , res )=>{
-  res.render('login.ejs')
-}
+exports.showLoginView = (req, res) => {
+  res.render("login.ejs");
+};
 
 exports.login = async (req, res, next) => {
   const { username, password } = req.body;
 
   const user = await User.findByUsername(username);
   if (!user) {
-    return res.status(401).json({ message: "Invalid Username or Password " });
+      //! use below codes for api base project
+    //    return res.status(401).json({ message: "Invalid Username or Password " });
+    req.flash("error", "Invalid Username or Password ");
+    return res.redirect('/auth/login')
   }
   const isPasswordValid = await bcrypt.compare(password, user.password);
   if (!isPasswordValid) {
-    return res.status(401).json({ message: "Invalid Username or Password " });
+    //! use below codes for api base project
+    //    return res.status(401).json({ message: "Invalid Username or Password " });
+    req.flash("error", "Invalid Username or Password ");
+    return res.redirect('/auth/login')
   }
   const accessToken = jwt.sign(
     { id: user.id, role: user.role },
@@ -70,17 +76,17 @@ exports.login = async (req, res, next) => {
     },
   );
   const hashedRefreshToken = await bcrypt.hash(refreshToken, 12);
-  res.cookie("access-token",accessToken,{
-    maxAge:900_000,
-    httpOnly:true,
-  })
-  res.cookie("refresh-token",hashedRefreshToken,{
-    maxAge:900_000,
-    httpOnly:true,
-  })
-  req.flash('success',"Signed In Was Successfully")
+  res.cookie("access-token", accessToken, {
+    maxAge: 900_000,
+    httpOnly: true,
+  });
+  res.cookie("refresh-token", hashedRefreshToken, {
+    maxAge: 900_000,
+    httpOnly: true,
+  });
+  req.flash("success", "Signed In Was Successfully");
 
-  return res.redirect("/auth")
+  return res.redirect("/auth");
   //! use below codes for api base project
   // return res.status(201).json({
   //   accessToken,

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title> بلاگ -    </title>
+    <title>  - مجموعه ای از </title>
     <link rel="stylesheet" href="/css/index.css" />
     <link
       rel="stylesheet"
@@ -47,7 +47,7 @@
             <div class="plus-icon">
               <i class="fa-solid fa-plus"></i>
             </div>
-            <span> عضو خبرنامه  شوید ! 😍 </span>
+            <span> عضو خبرنامه بلاگ شوید ! 😍 </span>
           </div>
           <div class="show-by">
             <button class="active">جدید ترین ها</button>
@@ -347,5 +347,26 @@
       </div>
     </div>
     <!-- END OF FOOTER -->
+
+    <script src="/js/sweetalert.js"></script>
+    <script>
+      if ("<%= locals.messages.error %>") {
+        console.log("error");
+
+        swal({
+          title: "<%= locals.messages.error %>",
+          icon: "error",
+          buttons: "Try Again",
+        });
+      } else if ("<%= locals.messages.success %>") {
+        console.log("Success");
+
+        swal({
+          title: "<%= locals.messages.success %>",
+          icon: "success",
+          buttons: "Huraaa 😍",
+        });
+      }
+    </script>
   </body>
 </html>
