@@ -3,6 +3,9 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const configs = require("./../configs");
 
+exports.showRegisterShowView = (req, res) => {
+  res.render("register.ejs");
+};
 exports.register = async (req, res, next) => {
   try {
     const { name, username, email, password } = req.body;
@@ -30,11 +33,21 @@ exports.register = async (req, res, next) => {
       },
     );
     const hashedRefreshToken = await bcrypt.hash(refreshToken, 12);
+    res.cookie("access-token", accessToken, {
+      maxAge: 900_000,
+      httpOnly: true,
+    });
+    res.cookie("refresh-token", hashedRefreshToken, {
+      maxAge: 900_000,
+      httpOnly: true,
+    });
+    req.flash("success", "Signed Up Was Successfully");
+    return res.redirect("/auth");
     //! use below codes for api base project
-    return res.status(201).json({
+    /* return res.status(201).json({
       accessToken,
       refreshToken: hashedRefreshToken,
-    });
+    }); */
   } catch (err) {
     next(err);
   }
@@ -49,17 +62,17 @@ exports.login = async (req, res, next) => {
 
   const user = await User.findByUsername(username);
   if (!user) {
-      //! use below codes for api base project
+    //! use below codes for api base project
     //    return res.status(401).json({ message: "Invalid Username or Password " });
     req.flash("error", "Invalid Username or Password ");
-    return res.redirect('/auth/login')
+    return res.redirect("/auth/login");
   }
   const isPasswordValid = await bcrypt.compare(password, user.password);
   if (!isPasswordValid) {
     //! use below codes for api base project
     //    return res.status(401).json({ message: "Invalid Username or Password " });
     req.flash("error", "Invalid Username or Password ");
-    return res.redirect('/auth/login')
+    return res.redirect("/auth/login");
   }
   const accessToken = jwt.sign(
     { id: user.id, role: user.role },

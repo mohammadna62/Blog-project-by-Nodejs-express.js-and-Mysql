@@ -5,17 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>وارد شوید - بلاگ</title>
     <link rel="stylesheet" href="/css/login.css" />
+    <link rel="stylesheet" href="/css/register.css" />
   </head>
   <body>
     <section class="container">
-      <form action="/auth/login" method="post" class="form">
+      <form action="/auth/register" method="post" class="form register-form">
         <div class="left-side image-bg"></div>
         <div class="form-content">
           <header>
             <p class="welcome">خوش آمدید !</p>
             <div class="go-register-text">
-              <p>حساب کاربری ندارید؟</p>
-              <a href="/pages/register/">ثبت نام کنید !</a>
+              <p>حساب کاربری دارید؟</p>
+              <a href="../login/">وارد شوید!</a>
             </div>
 
             <div class="login-methods">
@@ -34,13 +35,25 @@
 
             <div class="inputs-container">
               <input
-                class="form-input"
+                class="form-input fullName"
+                type="text"
+                name="name"
+                placeholder="نام و نام خانوادگی ..."
+              />
+              <input
+                class="form-input username"
                 type="text"
                 name="username"
                 placeholder="نام کاربری ..."
               />
               <input
-                class="form-input"
+                class="form-input email"
+                type="email"
+                name="email"
+                placeholder="آدرس ایمیل ..."
+              />
+              <input
+                class="form-input password"
                 type="password"
                 name="password"
                 placeholder="گذرواژه ..."
@@ -54,7 +67,7 @@
             </div>
           </main>
           <footer class="form-footer">
-            <button class="login-button">وارد شوید</button>
+            <button class="login-button">ثبت نام کنید</button>
           </footer>
         </div>
       </form>
