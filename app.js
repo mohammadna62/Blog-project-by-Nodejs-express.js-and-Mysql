@@ -44,8 +44,8 @@ app.set("view engine","ejs")
 app.set("views",path.join(__dirname,"views"))
 
 
-app.use('/api/auth', authRoutes)
-app.use('/api/articles', articlesRoutes)
+app.use('/auth', authRoutes)
+app.use('/articles', articlesRoutes)
 
 
 

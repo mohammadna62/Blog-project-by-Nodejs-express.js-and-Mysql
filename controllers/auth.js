@@ -40,6 +40,10 @@ exports.register = async (req, res, next) => {
   }
 };
 
+exports.showLoginView = (req , res )=>{
+  res.render('login.ejs')
+}
+
 exports.login = async (req, res, next) => {
   const { username, password } = req.body;
 
@@ -66,11 +70,22 @@ exports.login = async (req, res, next) => {
     },
   );
   const hashedRefreshToken = await bcrypt.hash(refreshToken, 12);
+  res.cookie("access-token",accessToken,{
+    maxAge:900_000,
+    httpOnly:true,
+  })
+  res.cookie("refresh-token",hashedRefreshToken,{
+    maxAge:900_000,
+    httpOnly:true,
+  })
+  req.flash('success',"Signed In Was Successfully")
+
+  return res.redirect("/auth")
   //! use below codes for api base project
-  return res.status(201).json({
-    accessToken,
-    refreshToken: hashedRefreshToken,
-  });
+  // return res.status(201).json({
+  //   accessToken,
+  //   refreshToken: hashedRefreshToken,
+  // });
 };
 
 exports.refresh = async (req, res, next) => {};
