@@ -21,7 +21,10 @@ exports.remove = async (req, res, next) => {
   try {
     const { id } = req.params;
     await Tag.remove(id);
-    return res.json({messsage:"Tag Removed Successfuly"});
+    req.flash("success", "تگ مورد نظر با موفقیت حذف شد");
+    return res.redirect('/p-admins/tags')
+    //!API base
+    // return res.json({messsage:"Tag Removed Successfuly"});
   } catch (err) {
     next(err);
   }

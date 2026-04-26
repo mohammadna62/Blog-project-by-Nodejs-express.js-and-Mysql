@@ -24,7 +24,7 @@ const findByTitle = async (title) => {
 
 const findAll = async () => {
   try {
-    const query = "select * from tags";
+    const query = "select * from tags order by id desc ";
     const [tags] = await db.execute(query);
     return tags;
   } catch (err) {
