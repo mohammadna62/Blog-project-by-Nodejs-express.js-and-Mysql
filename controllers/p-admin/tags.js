@@ -1,5 +1,5 @@
 const Tag = require("./../../repositories/tags")
-exports.showTagsManagment = async(req , res , next)=>{
+exports.showTagsManagement = async(req , res , next)=>{
     try {
         const tags = await Tag.findAll()
 
