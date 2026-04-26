@@ -5,7 +5,7 @@ const create = async (title) => {
     const query = "insert into tags (title) values (?)";
     const [insertedTag] = await db.execute(query, [title]);
     const selectMainTag = "select * from tags where id=?";
-    const tag = await db.execute(query, [insertedTag.insertId]);
+    const tag = await db.execute(selectMainTag, [insertedTag.insertId]);
     return tag[0][0];
   } catch (err) {
     throw err;
@@ -26,7 +26,7 @@ const findAll = async () => {
   try {
     const query = "select * from tags";
     const [tags] = await db.execute(query);
-    return tags[0];
+    return tags;
   } catch (err) {
     throw err;
   }
@@ -35,8 +35,9 @@ const findAll = async () => {
 const remove = async (id) => {
   try {
     const query = "delete from tags where id = ?";
-    const [tag] = await db.execute(query, [id]);
-    return tag[0];
+    await db.execute(query, [id]);
+
+    return true;
   } catch (error) {
     throw err;
   }

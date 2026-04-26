@@ -1,0 +1,28 @@
+const Tag = require("./../repositories/tags");
+
+exports.getAll = async (req, res, next) => {
+  try {
+    const tags = await Tag.findAll();
+    return res.status(200).json(tags);
+  } catch (err) {
+    next(err);
+  }
+};
+exports.create = async (req, res, next) => {
+  try {
+    const { title } = req.body;
+    const tag = await Tag.create(title);
+    return res.status(201).json(tag);
+  } catch (err) {
+    next(err);
+  }
+};
+exports.remove = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    await Tag.remove(id);
+    return res.json({messsage:"Tag Removed Successfuly"});
+  } catch (err) {
+    next(err);
+  }
+};

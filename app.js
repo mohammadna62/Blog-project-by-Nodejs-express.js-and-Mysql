@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 
 const authRoutes = require('./routes/auth')
 const articlesRoutes = require('./routes/articles');
+const tagsRoutes = require('./routes/tags.js');
 
 const app = express();
 
@@ -46,6 +47,7 @@ app.set("views",path.join(__dirname,"views"))
 
 app.use('/auth', authRoutes)
 app.use('/articles', articlesRoutes)
+app.use('/tags', tagsRoutes)
 
 
 
