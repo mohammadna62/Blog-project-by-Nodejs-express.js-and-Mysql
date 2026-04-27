@@ -22,9 +22,21 @@ exports.remove = async (req, res, next) => {
     const { id } = req.params;
     await Tag.remove(id);
     req.flash("success", "تگ مورد نظر با موفقیت حذف شد");
-    return res.redirect('/p-admins/tags')
+    return res.redirect("/p-admins/tags");
     //!API base
-    // return res.json({messsage:"Tag Removed Successfuly"});
+    // return res.json({message:"Tag Removed Successfully"});
+  } catch (err) {
+    next(err);
+  }
+};
+exports.update = async (req, res, next) => {
+  try {
+    const {id, title } = req.body;
+    const tags = await Tag.update(title, id);
+    req.flash("success", "تگ مورد نظر با موفقیت ویرایش شد");
+    return res.redirect("/p-admins/tags");
+    //!API base
+    // return res.json({message:"Tag Update Successfully"});
   } catch (err) {
     next(err);
   }

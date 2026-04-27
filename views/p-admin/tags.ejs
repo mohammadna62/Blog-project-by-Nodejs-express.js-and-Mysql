@@ -143,9 +143,12 @@
                   <form action="/tags/remove/<%= tag.id %>" method="post">
                     <button class="manage-button remove">حذف</button>
                   </form>
-                  <form action="/" method="post">
-                    <button class="manage-button edit">ویرایش</button>
-                  </form>
+                  <button
+                    class="manage-button edit"
+                    onclick="showUpdateTagModal('<%= tag.id %>', '<%= tag.title %>')"
+                  >
+                    ویرایش
+                  </button>
                   <form action="/" method="post">
                     <button class="manage-button view">مشاهده</button>
                   </form>
@@ -159,11 +162,34 @@
       </section>
     </main>
 
-    <div class="modal-screen invisible">
-      <div class="modal-card"></div>
+    <div class="modal-screen invisible" id="update-tag-modal">
+      <div id="modal-content">
+        <header>
+          <span></span>
+          <span>ویرایش عنوان</span>
+          <button id="close" class="close-update-tag-modal">X</button>
+        </header>
+        <form method="post" action="/tags/update">
+          <main>
+            <label for="title">عنوان:</label>
+            <input type="hidden" name="id" id="tag-id" />
+            <input
+              type="text"
+              id="input"
+              class="tag-title"
+              name="title"
+              placeholder="عنوان جدید را وارد نمائید ..."
+            />
+          </main>
+          <footer>
+            <button id="create" type="submit">اعمال تغییرات</button>
+          </footer>
+        </form>
+      </div>
     </div>
 
     <script src="/js/sweetalert.js"></script>
+    <script src="/js/tags.js"></script>
     <script>
       if ("<%= locals.messages.error %>") {
         swal({
@@ -181,45 +207,3 @@
     </script>
   </body>
 </html>
-
-<div class="dc-btnarea toolip-wrapo dc-print-options">
-  <a
-    href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=ss&dates=20240717T085000/20240717T085500&location=%DA%A9%D9%84%DB%8C%D9%86%DB%8C%DA%A9+%D8%AF%DA%A9%D8%AA%D8%B1+%D9%85%D8%AC%DB%8C%D8%AF+%D8%BA%D9%86%DA%86%D9%87+%D8%A7%DB%8C&sprop=&sprop=name:"
-    target="_blank"
-    ><i class="ti-google"></i
-  ></a>
-
-  <a
-    href="https://calendar.yahoo.com/?v=60&view=d&type=20&title=ss&st=20240717T085000Z&dur=0005&in_loc=%DA%A9%D9%84%DB%8C%D9%86%DB%8C%DA%A9+%D8%AF%DA%A9%D8%AA%D8%B1+%D9%85%D8%AC%DB%8C%D8%AF+%D8%BA%D9%86%DA%86%D9%87+%D8%A7%DB%8C"
-    target="_blank"
-    ><i class="ti-yahoo"></i
-  ></a>
-
-  <a
-    href="https://mamak-paziresh.ir/dashboard/?ref=prescription&mode=view&identity=194&booking_id=9313"
-    data-tipso="ایجاد نسخه"
-    class="dc-btn dc-filebtn dc-tipso generate-prescription tipso_style"
-    ><i class="ti-files"></i
-  ></a>
-
-  <a
-    href="javascript:void(0)"
-    data-toggle="modal"
-    data-tipso="ارسال پیام"
-    data-target="#send_message"
-    class="dc-btn dc-send-message dc-msgbtn dc-tipso tipso_style"
-    ><i class="ti-email"></i
-  ></a>
-
-  <form method="post" name="download_pdf" class="view-prescription">
-    <input type="hidden" name="pdf_booking_id" value="9313" />
-
-    <a
-      href="javascript:void(0)"
-      data-tipso="دانلود نسخه"
-      onclick="document.forms['download_pdf'].submit(); return false;"
-      class="dc-btn dc-pdfbtn dc-tipso tipso_style"
-      ><i class="ti-download"></i
-    ></a>
-  </form>
-</div>
