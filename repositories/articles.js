@@ -1,6 +1,6 @@
 const db = require("./../db");
-const create = async ({ title, content, slug, author_id }) => {
-  const insertQuery = "insert into articles values (NULL,?,?,?,?)";
+const create = async ( title, content, slug, author_id ) => {
+  const insertQuery = "insert into articles (title, content, slug, author_id) values (?,?,?,?)";
   const [insertedArticle] = await db.execute(insertQuery, [
     title,
     content,

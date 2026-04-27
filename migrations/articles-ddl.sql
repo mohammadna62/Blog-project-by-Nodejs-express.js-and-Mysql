@@ -4,6 +4,7 @@ CREATE TABLE articles (
     content mediumtext  NOT NULL,
     slug varchar(255) NOT NULL,
     author_id int(10) unsigned NOT NULL,
+    cover varchar(255),
     created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     
