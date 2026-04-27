@@ -17,6 +17,13 @@ exports.create = async (req, res, next) => {
     next(err);
   }
 };
+exports.findTagArticles = async(req , res , next)=>{
+  try {
+    res.render("tagArticles.ejs")
+  } catch (err) {
+    next(err)
+  }
+}
 exports.remove = async (req, res, next) => {
   try {
     const { id } = req.params;
