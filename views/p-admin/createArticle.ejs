@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fa-IR" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>پنل مدیریت</title>
+    <link rel="stylesheet" href="/css/p-admin/tags.css" />
+    <link rel="stylesheet" href="/css/p-admin/createArticle.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <header>
+        <a href="/">
+          <img src="/images/logo.png" alt="Website logo" class="website-logo" />
+        </a>
+      </header>
+      <main class="sidebar-content">
+        <div>
+          <a href="../" class="side-link">
+            <i class="fa-solid fa-house"></i>
+            صفحه اصلی
+          </a>
+        </div>
+        <div>
+          <a href="./" class="side-link">
+            <i class="fa-solid fa-square-plus"></i>
+            ایجاد مقاله
+          </a>
+        </div>
+        <div>
+          <a href="#" class="side-link">
+            <i class="fa-solid fa-users"></i>
+            لیست کاربران
+          </a>
+        </div>
+        <div>
+          <a href="#" class="side-link">
+            <i class="fa-solid fa-wallet"></i> مدیریت فروش
+          </a>
+        </div>
+        <div>
+          <a href="#" class="side-link">
+            <i class="fa-solid fa-shop"></i> محصولات
+          </a>
+        </div>
+        <div>
+          <a href="#" class="side-link">
+            <i class="fa-solid fa-list"></i>
+            دسته بندی ها
+          </a>
+        </div>
+      </main>
+    </aside>
+
+    <!-- Main content  -->
+    <main id="content">
+      <!-- Navbar - profile -->
+      <nav>
+        <div>
+          <div>
+            <p class="welcome">پیمان عزیز, خوش آمدید 🙌</p>
+            <p class="text-sm">روز خوشی رو داشته باشید !</p>
+          </div>
+        </div>
+        <div class="navbar-buttons">
+          <button class="bell-button">
+            <i class="fa-solid fa-bell"></i>
+          </button>
+          <div class="break-line"></div>
+          <div class="profile-dropdown">
+            <div class="profile-data">
+              <img
+                src="/images/admin.jpg"
+                alt="Admin profile"
+                class="admin-profile"
+              />
+              <div>
+                <p class="user-name">پیمان احمدی</p>
+                <p class="user-role">مدیر</p>
+              </div>
+              <div>
+                <span>
+                  <i class="fa-solid fa-chevron-left"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Content  -->
+      <section id="container">
+        <!-- Sort & Filtering -->
+        <header>
+          <div>
+            <h3 class="page-title">ایجاد مقاله</h3>
+            <p class="text-sm">
+              برای ایجاد مقاله تمامی ورودی ها اجباری می باشند 🙌
+            </p>
+          </div>
+        </header>
+
+        <!-- Table container -->
+        <main>
+          <div class="inputs-wrapper">
+            <input
+              type="text"
+              class="input-element title"
+              placeholder=" عنوان مقاله را وارد نمائید ..."
+            />
+            <input
+              type="text"
+              class="input-element author"
+              placeholder="لینک مقاله را وارد نمائید ..."
+            />
+            <label class="input-element file-upload">
+              <div class="label">لطفا یک فایل را انتخاب نمائید ...</div>
+              <input type="file" name="cover" id="cover" />
+            </label>
+          </div>
+          <textarea
+            name="article-content"
+            class="textarea description"
+            id="article-content"
+            placeholder="لطفا توضیحات مقاله را وارد نمائید ..."
+          ></textarea>
+          <div class="buttons-wrapper">
+            <a class="cancel" href="../">انصراف</a>
+            <button class="submit">ایجاد مقاله</button>
+          </div>
+        </main>
+      </section>
+    </main>
+
+    <div class="modal-screen invisible">
+      <div class="modal-card"></div>
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.15.1/ckeditor.js"
+      integrity="sha512-aThGT4RJc95+zt2vrs8iMjrFpsJxcFclp7tweVls6/3cNo3GWvGvtLV576o8Kdvdf3fJhrrG3wkmoea/KJMLFQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script>
+      // توسط دستور ری پلیس ما می گیم سی کا ادیتور را جاگزین تگ تکست اریایی بکن که اسمش آرتیکل کانتنت است
+      CKEDITOR.replace("article-content", {
+        contentsLangDirection: "rtl",
+        language: "fa",
+        height:300,
+      });
+    </script>
+  </body>
+</html>
