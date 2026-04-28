@@ -110,14 +110,17 @@
 
         <!-- Table container -->
         <main>
-          <div class="inputs-wrapper">
+          <form action="/articles" method="post">
+              <div class="inputs-wrapper">
             <input
               type="text"
+              name="title"
               class="input-element title"
               placeholder=" عنوان مقاله را وارد نمائید ..."
             />
             <input
               type="text"
+              name="slug"
               class="input-element author"
               placeholder="لینک مقاله را وارد نمائید ..."
             />
@@ -127,7 +130,7 @@
             </label>
           </div>
           <textarea
-            name="article-content"
+            name="content"
             class="textarea description"
             id="article-content"
             placeholder="لطفا توضیحات مقاله را وارد نمائید ..."
@@ -136,8 +139,10 @@
             <a class="cancel" href="../">انصراف</a>
             <button class="submit">ایجاد مقاله</button>
           </div>
+        </form>
         </main>
-      </section>
+       </section>
+          
     </main>
 
     <div class="modal-screen invisible">
@@ -158,6 +163,21 @@
         language: "fa",
         height:300,
       });
+    </script>
+      <script>
+      if ("<%= locals.messages.error %>") {
+        swal({
+          title: "<%= locals.messages.error %>",
+          icon: "error",
+          buttons: "Try Again",
+        });
+      } else if ("<%= locals.messages.success %>") {
+        swal({
+          title: "<%= locals.messages.success %>",
+          icon: "success",
+          buttons: "Huraaa 😍",
+        });
+      }
     </script>
   </body>
 </html>

@@ -2,6 +2,7 @@ const express = require("express");
 const controller = require("./../controllers/articles");
 const multer = require("multer");
 const path = require("path")
+const authGuard = require("./../middlewares/authGuard")
 
 const router = express.Router();
 
@@ -30,7 +31,7 @@ const uploader = multer({
     limits:{fileSize:3*1024*1024} //#MB
 })
 
-router.route("/").get(controller.getAll).post(uploader.single("cover"),controller.create);
+router.route("/").get(controller.getAll).post(authGuard,controller.create);
 router.route("/:slug").get(controller.getBySlug);
 router.route("/remove/:id").post(controller.remove); //! use DELETE method for API base
 
