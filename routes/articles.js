@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
 });
 const fileFilter = (req , file ,cb) =>{
    const validFileTypes = /jpeg|jpg|png/
-   const mimType = validFileTypes.test(file.mimtype)
+   const mimType = validFileTypes.test(file.mimetype)
    const extName = validFileTypes.test(path.extname(file.originalname))
    if (mimType && extName){
    return cb(null ,true )
@@ -31,7 +31,7 @@ const uploader = multer({
     limits:{fileSize:3*1024*1024} //#MB
 })
 
-router.route("/").get(controller.getAll).post(authGuard,controller.create);
+router.route("/").get(controller.getAll).post(authGuard,uploader.single("cover"),controller.create);
 router.route("/:slug").get(controller.getBySlug);
 router.route("/remove/:id").post(controller.remove); //! use DELETE method for API base
 

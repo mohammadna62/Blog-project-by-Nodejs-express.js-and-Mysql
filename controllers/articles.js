@@ -1,5 +1,5 @@
 const Article = require("./../repositories/articles");
-const slugify  = require("slugify");
+const slugify = require("slugify");
 exports.getAll = async (req, res, next) => {
   try {
   } catch (err) {
@@ -14,9 +14,11 @@ exports.create = async (req, res, next) => {
       lower: true,
     });
     const author_id = req.user.id;
-    await Article.create(title, content, slug, author_id);
-    req.flash("success","مقاله شما ایجاد شد")
-    return res.redirect("/p-admins/create-article")
+    console.log(req.file);
+    
+    await Article.create({title, content, slug, author_id, cover:req.file?.filename});
+    req.flash("success", "مقاله مورد نظر با موفقیت ایجاد شد");
+    return res.redirect("/p-admins/create-article");
   } catch (err) {
     next(err);
   }

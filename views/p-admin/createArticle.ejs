@@ -110,39 +110,38 @@
 
         <!-- Table container -->
         <main>
-          <form action="/articles" method="post">
-              <div class="inputs-wrapper">
-            <input
-              type="text"
-              name="title"
-              class="input-element title"
-              placeholder=" عنوان مقاله را وارد نمائید ..."
-            />
-            <input
-              type="text"
-              name="slug"
-              class="input-element author"
-              placeholder="لینک مقاله را وارد نمائید ..."
-            />
-            <label class="input-element file-upload">
-              <div class="label">لطفا یک فایل را انتخاب نمائید ...</div>
-              <input type="file" name="cover" id="cover" />
-            </label>
-          </div>
-          <textarea
-            name="content"
-            class="textarea description"
-            id="article-content"
-            placeholder="لطفا توضیحات مقاله را وارد نمائید ..."
-          ></textarea>
-          <div class="buttons-wrapper">
-            <a class="cancel" href="../">انصراف</a>
-            <button class="submit">ایجاد مقاله</button>
-          </div>
-        </form>
+          <form action="/articles" method="post" enctype="multipart/form-data">
+            <div class="inputs-wrapper">
+              <input
+                type="text"
+                name="title"
+                class="input-element title"
+                placeholder=" عنوان مقاله را وارد نمائید ..."
+              />
+              <input
+                type="text"
+                name="slug"
+                class="input-element author"
+                placeholder="لینک مقاله را وارد نمائید ..."
+              />
+              <label class="input-element file-upload">
+                <div class="label">لطفا یک فایل را انتخاب نمائید ...</div>
+                <input type="file" name="cover" id="cover" />
+              </label>
+            </div>
+            <textarea
+              name="content"
+              class="textarea description"
+              id="article-content"
+              placeholder="لطفا توضیحات مقاله را وارد نمائید ..."
+            ></textarea>
+            <div class="buttons-wrapper">
+              <a class="cancel" href="../">انصراف</a>
+              <button class="submit">ایجاد مقاله</button>
+            </div>
+          </form>
         </main>
-       </section>
-          
+      </section>
     </main>
 
     <div class="modal-screen invisible">
@@ -161,10 +160,11 @@
       CKEDITOR.replace("article-content", {
         contentsLangDirection: "rtl",
         language: "fa",
-        height:300,
+        height: 300,
       });
     </script>
-      <script>
+    <script src="/js/sweetalert.js"></script>
+    <script>
       if ("<%= locals.messages.error %>") {
         swal({
           title: "<%= locals.messages.error %>",

@@ -38,7 +38,9 @@ app.use(express.static(path.resolve(__dirname,"public")))
 app.use("/css",express.static(path.resolve(__dirname,"public/css"))) 
 //! '/js' going to public/js
 app.use("/js",express.static(path.resolve(__dirname,"public/js")))
+//! '/fonts' going to public/fonts
 app.use("/fonts",express.static(path.resolve(__dirname,"public/fonts")))
+//! '/images' going to public/images
 app.use("/images",express.static(path.resolve(__dirname,"public/images")))
 
 //* Ejs Template Engine configs
