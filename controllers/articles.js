@@ -9,15 +9,17 @@ exports.getAll = async (req, res, next) => {
 
 exports.create = async (req, res, next) => {
   try {
-    let { title, content, slug } = req.body;
+    let { title, content, slug , tags} = req.body;
     slug = slugify(slug, {
       lower: true,
     });
     const author_id = req.user.id;
-    console.log(req.file);
-    
-    await Article.create({title, content, slug, author_id, cover:req.file?.filename});
-    req.flash("success", "مقاله مورد نظر با موفقیت ایجاد شد");
+      
+   const article = await Article.create({title, content, slug, author_id, cover:req.file?.filename});
+    tags.forEach(async(tag)=>{
+       await Article.addTag(article.id,Number(tag))
+    })
+    req.flash("success", "مقاله مورد نظر ایجاد شد");
     return res.redirect("/p-admins/create-article");
   } catch (err) {
     next(err);

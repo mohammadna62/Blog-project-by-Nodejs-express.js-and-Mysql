@@ -10,10 +10,10 @@ const create = async ( {title, content, slug, author_id,cover} ) => {
   ]);
 
   const selectMainArticle = "select * from articles where id=?";
-  const articles = await db.execute(selectMainArticle, [
+  const [article] = await db.execute(selectMainArticle, [
     insertedArticle.insertId,
   ]);
-  return articles;
+  return article[0];
 };
 const addTag = async (articleId, tagId) => {
   try {

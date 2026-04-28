@@ -124,11 +124,22 @@
                 class="input-element author"
                 placeholder="لینک مقاله را وارد نمائید ..."
               />
+              <select name="tags" class="input-element author" multiple>
+                <option value="-1">تگ مورد نظر را انتخاب نمائید</option>
+                <% if(tags.length) { %> 
+                  <% tags.forEach(tag => { %>
+                      <option value="<%= tag.id%>"><%= tag.title%></option>
+
+                  <% }) %>
+                <% } %>
+                
+              </select>
               <label class="input-element file-upload">
                 <div class="label">لطفا یک فایل را انتخاب نمائید ...</div>
                 <input type="file" name="cover" id="cover" />
               </label>
             </div>
+
             <textarea
               name="content"
               class="textarea description"
