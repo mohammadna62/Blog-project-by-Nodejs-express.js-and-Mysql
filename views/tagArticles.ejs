@@ -5,7 +5,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title> بلاگ -</title>
+    <title>سبز بلاگ - مجموعه ای از سبزلرن</title>
     <link rel="stylesheet" href="/css/tagArticles.css" />
     <link
       rel="stylesheet"
@@ -55,20 +55,22 @@
           <div class="articles mt-10">
             <div class="text-lg">
               <span>مقالات مرتبط با</span>
-              <span class="font-medium text-sky-500" id="tag">#فرانت_اند</span>
+              <span class="font-medium text-sky-500" id="tag"><%= tag %>#</span>
             </div>
+
+            <% if (articles.length) { %> <% articles.forEach(article => { %>
             <article class="article">
               <div class="article-data">
                 <div class="article-author">
                   <span>
                     <img src="/images/admin.jpg" class="user-profile" alt="" />
                   </span>
-                  <span>پیمان احمدی</span>
+                  <span><%= article.author %></span>
                   <span class="article-release-date">4 روز پیش</span>
                 </div>
                 <div>
                   <a href="/pages/article/">
-                    <h3>چگونه انسان شاد تری باشیم؟</h3>
+                    <h3><%= article.title %></h3>
                   </a>
                   <p class="article-caption">
                     لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و
@@ -87,9 +89,7 @@
                 </div>
                 <div class="article-footer">
                   <div class="categories">
-                    <span> زندگی </span>
-                    <span> شادی </span>
-                    <span> جامعه </span>
+                    <span> <%= tag %> </span>
                   </div>
                   <div>
                     <span class="gray-text">
@@ -99,99 +99,13 @@
                 </div>
               </div>
               <div class="article-cover">
-                <img src="/images/social.jpg" alt="Article title :)" />
+                <img
+                  src="http://localhost:4000<%= article.cover %>"
+                  alt="Article title :)"
+                />
               </div>
             </article>
-            <article class="article">
-              <div class="article-data">
-                <div class="article-author">
-                  <span>
-                    <img src="/images/admin.jpg" class="user-profile" alt="" />
-                  </span>
-                  <span>پیمان احمدی</span>
-                  <span class="article-release-date">4 روز پیش</span>
-                </div>
-                <div>
-                  <a href="/pages/article/">
-                    <h3>چگونه انسان شاد تری باشیم؟</h3>
-                  </a>
-                  <p class="article-caption">
-                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و
-                    با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه
-                    و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی
-                    تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای
-                    کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و
-                    آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم
-                    افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص
-                    طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این
-                    صورت می توان امید داشت که تمام و دشواری موجود در ارائه
-                    راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز
-                    شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل
-                    دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
-                  </p>
-                </div>
-                <div class="article-footer">
-                  <div class="categories">
-                    <span> زندگی </span>
-                    <span> شادی </span>
-                    <span> جامعه </span>
-                  </div>
-                  <div>
-                    <span class="gray-text">
-                      <i class="fa-regular fa-bookmark"></i>
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div class="article-cover">
-                <img src="/images/social.jpg" alt="Article title :)" />
-              </div>
-            </article>
-            <article class="article">
-              <div class="article-data">
-                <div class="article-author">
-                  <span>
-                    <img src="/images/admin.jpg" class="user-profile" alt="" />
-                  </span>
-                  <span>پیمان احمدی</span>
-                  <span class="article-release-date">4 روز پیش</span>
-                </div>
-                <div>
-                  <a href="/pages/article/">
-                    <h3>چگونه انسان شاد تری باشیم؟</h3>
-                  </a>
-                  <p class="article-caption">
-                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و
-                    با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه
-                    و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی
-                    تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای
-                    کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و
-                    آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم
-                    افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص
-                    طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این
-                    صورت می توان امید داشت که تمام و دشواری موجود در ارائه
-                    راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز
-                    شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل
-                    دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
-                  </p>
-                </div>
-                <div class="article-footer">
-                  <div class="categories">
-                    <span> زندگی </span>
-                    <span> شادی </span>
-                    <span> جامعه </span>
-                  </div>
-                  <div>
-                    <span class="gray-text">
-                      <i class="fa-regular fa-bookmark"></i>
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div class="article-cover">
-                <img src="/images/social.jpg" alt="Article title :)" />
-              </div>
-            </article>
+            <% }) %> <% } %>
           </div>
         </div>
       </section>

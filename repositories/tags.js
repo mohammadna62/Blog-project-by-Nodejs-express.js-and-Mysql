@@ -16,7 +16,8 @@ const findByTitle = async (title) => {
   try {
     const query = "select * from tags where title =?";
     const [tag] = await db.execute(query, [title]);
-    return tag[0][0];
+
+    return tag[0];
   } catch (err) {
     throw err;
   }

@@ -43,7 +43,8 @@ exports.create = async (req, res, next) => {
       author_id,
      cover:coverPath,   //! cover: req.file?.filename, for storage usage
     });
-    tags.forEach(async (tag) => {
+    const tagsArray = Array.isArray(tags) ? tags : [tags];
+    tagsArray.forEach(async (tag) => {
       await Article.addTag(article.id, Number(tag));
     });
     req.flash("success", "مقاله مورد نظر ایجاد شد");

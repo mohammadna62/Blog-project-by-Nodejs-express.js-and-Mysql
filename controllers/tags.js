@@ -1,4 +1,5 @@
 const Tag = require("./../repositories/tags");
+const Article = require("./../repositories/articles");
 
 exports.getAll = async (req, res, next) => {
   try {
@@ -17,13 +18,23 @@ exports.create = async (req, res, next) => {
     next(err);
   }
 };
-exports.findTagArticles = async(req , res , next)=>{
+exports.findTagArticles = async (req, res, next) => {
   try {
-    res.render("tagArticles.ejs")
+    const tagTitle = req.params.slug;
+     
+    const tag = await Tag.findByTitle(tagTitle);
+    
+    const articles = await Article.findTagArticles(tag.id)
+    
+ 
+    res.render("tagArticles.ejs",{
+      tag:tag.title,
+      articles,
+    });
   } catch (err) {
-    next(err)
+    next(err);
   }
-}
+};
 exports.remove = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -38,7 +49,7 @@ exports.remove = async (req, res, next) => {
 };
 exports.update = async (req, res, next) => {
   try {
-    const {id, title } = req.body;
+    const { id, title } = req.body;
     const tags = await Tag.update(title, id);
     req.flash("success", "تگ مورد نظر با موفقیت ویرایش شد");
     return res.redirect("/p-admins/tags");

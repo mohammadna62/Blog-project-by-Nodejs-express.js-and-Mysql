@@ -1,6 +1,9 @@
+const flash = require("express-flash");
 const db = require("./../db");
-const create = async ( {title, content, slug, author_id,cover} ) => {
-  const insertQuery = "insert into articles (title, content, slug, author_id, cover) values (?,?,?,?,?)";
+
+const create = async ({ title, content, slug, author_id, cover }) => {
+  const insertQuery =
+    "insert into articles (title, content, slug, author_id, cover) values (?,?,?,?,?)";
   const [insertedArticle] = await db.execute(insertQuery, [
     title,
     content,
@@ -33,5 +36,30 @@ const deleteOne = async (id) => {
     return false;
   }
 };
+const findTagArticles = async (tagId) => {
+  try {
+    const query = `SELECT
+  articles.title,
+  articles.content,
+  articles.slug,
+  articles.cover,
+  articles.created_at,
+  users.name AS author,
+  tags.title AS tag
+  FROM articles_tags
+  JOIN articles ON
+  articles_tags.article_id = articles.id
+  JOIN users ON
+  users.id = articles.author_id
+  JOIN tags ON
+  articles_tags.tag_id = tags.id
+  WHERE tag_id = ?;`;
 
-module.exports = { create, addTag, deleteOne };
+  const [articles] = await db.execute(query, [tagId]);
+    return articles;
+  } catch (err) {
+    return false;
+  }
+};
+const findArticlesById = async (id) => {};
+module.exports = { create, addTag, deleteOne, findTagArticles };
