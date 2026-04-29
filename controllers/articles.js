@@ -17,7 +17,7 @@ exports.create = async (req, res, next) => {
     });
     const author_id = req.user.id;
     const fileBuffer = req.file.buffer;
-    const coverPath = `./public/images/covers/${Date.now()}-${req.file.originalname}`;
+    const coverPath = `/images/covers/${Date.now()}-${req.file.originalname}`;
     const extType = path.extname(req.file.originalname);
 
     if (extType === ".png") {
@@ -25,27 +25,27 @@ exports.create = async (req, res, next) => {
         .png({
           quality: 60,
         })
-        .toFile(coverPath);
+        .toFile(`./public/${coverPath}`);
     } else if (extType === ".jpeg" || extType === ".jpg") {
       sharp(fileBuffer)
         .jpeg({
           quality: 60,
         })
-        .toFile(coverPath);
+        .toFile(`./public/${coverPath}`);
     } else {
-      next(new Error("File Type Is Not Valid !"));
+      next(new Error("Only PNG and JPEG files are supported!"));
     }
 
-    // const article = await Article.create({
-    //   title,
-    //   content,
-    //   slug,
-    //   author_id,
-    //   cover: req.file?.filename,
-    // });
-    // tags.forEach(async (tag) => {
-    //   await Article.addTag(article.id, Number(tag));
-    // });
+    const article = await Article.create({
+      title,
+      content,
+      slug,
+      author_id,
+     cover:coverPath,   //! cover: req.file?.filename, for storage usage
+    });
+    tags.forEach(async (tag) => {
+      await Article.addTag(article.id, Number(tag));
+    });
     req.flash("success", "مقاله مورد نظر ایجاد شد");
     return res.redirect("/p-admins/create-article");
   } catch (err) {

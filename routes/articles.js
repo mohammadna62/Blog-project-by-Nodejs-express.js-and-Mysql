@@ -17,19 +17,19 @@ const router = express.Router();
 //     cb(null ,filename )
 //   },
 // });
-const fileFilter = (req , file ,cb) =>{
-   const validFileTypes = /jpeg|jpg|png/
-   const mimeType = validFileTypes.test(file.mimetype)
-   const extName = validFileTypes.test(path.extname(file.originalname))
-   if (mimeType && extName){
-   return cb(null ,true )
-   }else{
-    return  cb(new Error("File Type Is Not Valid !"))
-   }
-}
+// const fileFilter = (req , file ,cb) =>{
+//    const validFileTypes = /jpeg|jpg|png/
+//    const mimeType = validFileTypes.test(file.mimetype)
+//    const extName = validFileTypes.test(path.extname(file.originalname))
+//    if (mimeType && extName){
+//    return cb(null ,true )
+//    }else{
+//     return  cb(new Error("File Type Is Not Valid !"))
+//    }
+// }
 const uploader = multer({
    // storage, //! storage : storage  Note: When use sharp package to compress file(picture cover) no need to config storage
-    fileFilter,//! fileFilter:fileFilter
+   // fileFilter,//! fileFilter:fileFilter
     limits:{fileSize:3*1024*1024} //#MB
 })
 
