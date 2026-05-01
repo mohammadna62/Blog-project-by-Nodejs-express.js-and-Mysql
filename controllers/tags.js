@@ -1,5 +1,6 @@
 const Tag = require("./../repositories/tags");
 const Article = require("./../repositories/articles");
+const {calculateRelativeTimeDifference} =require("./../utils/funcs")
 
 exports.getAll = async (req, res, next) => {
   try {
@@ -26,7 +27,10 @@ exports.findTagArticles = async (req, res, next) => {
     
     const articles = await Article.findTagArticles(tag.id)
     
- 
+    articles.forEach(article =>{
+      article.created_at = calculateRelativeTimeDifference(article.created_at);  
+    }) 
+
     res.render("tagArticles.ejs",{
       tag:tag.title,
       articles,

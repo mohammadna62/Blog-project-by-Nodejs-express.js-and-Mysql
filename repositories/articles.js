@@ -53,7 +53,7 @@ const findTagArticles = async (tagId) => {
   users.id = articles.author_id
   JOIN tags ON
   articles_tags.tag_id = tags.id
-  WHERE tag_id = ?;`;
+  WHERE tag_id = ? ORDER BY created_at DESC;`;
 
   const [articles] = await db.execute(query, [tagId]);
     return articles;
