@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const configs = require("./../configs");
 const svgCaptcha = require("svg-captcha");
-let createdCaptcha = null;
+
 
 exports.showRegisterShowView = (req, res) => {
   res.render("register.ejs");
@@ -122,7 +122,7 @@ exports.logout = async (req, res, next) => {};
 
 exports.getCaptcha = (req, res) => {
   // const captcha = svgCaptcha.create({size: 4,color: true,noise: 5,});
-  createdCaptcha = svgCaptcha.createMathExpr({
+  const createdCaptcha = svgCaptcha.createMathExpr({
     min: 1,
     max: 9,
     mathOperator: "+-",

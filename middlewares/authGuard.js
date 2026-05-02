@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const configs = require("./../configs");
+const configs = require("../configs");
 
 module.exports = async (req, res, next) => {
   try {
@@ -11,8 +11,9 @@ module.exports = async (req, res, next) => {
         configs.auth.accessTokenSecretKey,
       );
 
-      if (decoded.role === "admin") {
+      if (decoded) {
         req.user = decoded;
+
         next();
       } else {
         return res.redirect("/auth/login");
