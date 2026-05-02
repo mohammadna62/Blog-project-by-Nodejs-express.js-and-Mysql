@@ -31,7 +31,7 @@ exports.findTagArticles = async (req, res, next) => {
       article.created_at = calculateRelativeTimeDifference(article.created_at);  
     }) 
 
-    res.render("tagArticles.ejs",{
+    return res.render("tagArticles.ejs",{
       tag:tag.title,
       articles,
     });

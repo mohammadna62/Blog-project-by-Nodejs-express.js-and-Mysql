@@ -40,7 +40,7 @@ const findTagArticles = async (tagId) => {
   try {
     const query = `SELECT
   articles.title,
-  articles.content,
+  CONCAT(SUBSTRING(articles.content,4,100),'...') AS content,
   articles.slug,
   articles.cover,
   articles.created_at,
