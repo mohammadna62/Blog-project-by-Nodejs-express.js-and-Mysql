@@ -2,6 +2,8 @@ const User = require("./../repositories/users");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const configs = require("./../configs");
+const svgCaptcha = require("svg-captcha");
+let createdCaptcha = null;
 
 exports.showRegisterShowView = (req, res) => {
   res.render("register.ejs");
@@ -58,7 +60,12 @@ exports.showLoginView = (req, res) => {
 };
 
 exports.login = async (req, res, next) => {
-  const { username, password } = req.body;
+  const { username, password, captcha } = req.body;
+  //! checking Captcha from session
+  if (!req.session.captchaText || captcha !== req.session.captchaText) {
+    req.flash("error", "Invalid Captcha");
+    return res.redirect("/auth/login");
+  }
 
   const user = await User.findByUsername(username);
   if (!user) {
@@ -112,3 +119,17 @@ exports.refresh = async (req, res, next) => {};
 exports.getMe = async (req, res, next) => {};
 
 exports.logout = async (req, res, next) => {};
+
+exports.getCaptcha = (req, res) => {
+  // const captcha = svgCaptcha.create({size: 4,color: true,noise: 5,});
+  createdCaptcha = svgCaptcha.createMathExpr({
+    min: 1,
+    max: 9,
+    mathOperator: "+-",
+    color: true,
+  }); //! Math Captcha
+  req.session.captchaText = createdCaptcha.text; //! Saving Captcha.text to session
+  return res.status(200).json({
+    captcha: createdCaptcha.data,
+  });
+};

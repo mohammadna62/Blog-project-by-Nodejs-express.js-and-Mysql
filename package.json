@@ -28,6 +28,7 @@
     "mysql2": "^3.22.0",
     "sharp": "^0.34.5",
     "slugify": "^1.6.9",
+    "svg-captcha": "^1.4.0",
     "yup": "^1.7.1"
   },
   "devDependencies": {

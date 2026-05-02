@@ -45,6 +45,15 @@
                 name="password"
                 placeholder="گذرواژه ..."
               />
+
+              <div id="captcha-image"></div>
+
+              <input
+                class="form-input"
+                type="text"
+                name="captcha"
+                placeholder="کد امنیتی"
+              />
             </div>
             <div>
               <div class="remember-me">
@@ -75,6 +84,16 @@
           buttons: "Huraaa 😍",
         });
       }
+    </script>
+
+    <script>
+      (async function () {
+        const captchaImage = document.querySelector("#captcha-image");
+        const response = await fetch("/auth/captcha");
+        const jsonResponse = await response.json();
+
+        captchaImage.innerHTML = jsonResponse.captcha;
+      })();
     </script>
   </body>
 </html>
