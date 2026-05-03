@@ -78,7 +78,7 @@
                 </div>
                 <div class="article-footer">
                   <div class="categories">
-                    <span> <%= searchValue %> </span>
+                    <span> <%= article.tag %> </span>
                   </div>
                   <div>
                     <span class="gray-text">
@@ -94,7 +94,10 @@
                 />
               </div>
             </article>
-            <% }) %> <% } %>
+            <% }) %> <% }else{ %> 
+              <br/>
+              <h2>مقاله ای با این عنوان یافت نشد</h2>
+              <%}%>
           </div>
         </div>
       </section>

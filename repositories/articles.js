@@ -64,12 +64,26 @@ const findTagArticles = async (tagId) => {
 const searchInArticles = async (searchValue) => {
   try {
     const query = `
-        SELECT *
-        FROM articles
+        SELECT
+       articles.id,
+       articles.title,
+       articles.content,
+       articles.slug,
+       articles.cover,
+       users.name AS author,
+       tags.title AS tag
+       FROM articles
+       JOIN articles_tags ON
+       articles_tags.article_id = articles.id
+       JOIN tags ON
+       articles_tags.tag_id = tags.id
+       JOIN users ON
+       users.id = articles.author_id
         WHERE 
-            title LIKE CONCAT('%', ?, '%')
+            articles.title LIKE CONCAT('%', ?, '%')
             OR slug LIKE CONCAT('%', ?, '%')
             OR content LIKE CONCAT('%', ?, '%')
+        GROUP BY articles.id    
     `;
     const [articles] = await db.execute(query, [
       searchValue,
