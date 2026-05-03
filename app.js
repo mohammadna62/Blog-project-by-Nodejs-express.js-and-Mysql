@@ -9,8 +9,8 @@ const authRoutes = require("./routes/auth");
 const articlesRoutes = require("./routes/articles");
 const tagsRoutes = require("./routes/tags");
 const adminRoutes = require("./routes/p-admin");
-const homeAuth = require("./middlewares/homeAuth");
-const User = require("./repositories/users")
+const homeRoutes = require("./routes/home")
+
 
 const app = express();
 
@@ -51,18 +51,9 @@ app.use("/images", express.static(path.resolve(__dirname, "public/images")));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-app.get("/", homeAuth, async(req, res) => {
-  const userId = req.user?.id;
-  let user = null;
-  if (userId) {
-    user = await User.findById(userId)
-  }
- 
-  res.render("index.ejs", {
-    user,
-  });
-});
 
+
+app.use("/", homeRoutes);
 app.use("/auth", authRoutes);
 app.use("/articles", articlesRoutes);
 app.use("/tags", tagsRoutes);

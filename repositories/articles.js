@@ -55,11 +55,36 @@ const findTagArticles = async (tagId) => {
   articles_tags.tag_id = tags.id
   WHERE tag_id = ? ORDER BY created_at DESC;`;
 
-  const [articles] = await db.execute(query, [tagId]);
+    const [articles] = await db.execute(query, [tagId]);
     return articles;
   } catch (err) {
     return false;
   }
 };
-const findArticlesById = async (id) => {};
-module.exports = { create, addTag, deleteOne, findTagArticles };
+const searchInArticles = async (searchValue) => {
+  try {
+    const query = `
+        SELECT *
+        FROM articles
+        WHERE 
+            title LIKE CONCAT('%', ?, '%')
+            OR slug LIKE CONCAT('%', ?, '%')
+            OR content LIKE CONCAT('%', ?, '%')
+    `;
+    const [articles] = await db.execute(query, [
+      searchValue,
+      searchValue,
+      searchValue,
+    ]);
+    return articles;
+  } catch (err) {
+    next(err);
+  }
+};
+module.exports = {
+  create,
+  addTag,
+  deleteOne,
+  findTagArticles,
+  searchInArticles,
+};
