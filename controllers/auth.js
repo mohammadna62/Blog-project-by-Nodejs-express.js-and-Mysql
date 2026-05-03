@@ -44,7 +44,7 @@ exports.register = async (req, res, next) => {
       httpOnly: true,
     });
     req.flash("success", "Signed Up Was Successfully");
-    return res.redirect("/auth");
+    return res.redirect("/");
     //! use below codes for api base project
     /* return res.status(201).json({
       accessToken,
@@ -106,7 +106,7 @@ exports.login = async (req, res, next) => {
   });
   req.flash("success", "Signed In Was Successfully");
 
-  return res.redirect("/auth");
+  return res.redirect("/");
   //! use below codes for api base project
   // return res.status(201).json({
   //   accessToken,

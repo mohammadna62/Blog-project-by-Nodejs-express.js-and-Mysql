@@ -240,15 +240,17 @@
       </section>
       <div class="right-nav">
         <div>
+          <% if(user){%>
           <div class="profile-card">
-            <img src="/images/admin.jpg" alt="" class="profile-picture" />
+            <img src="/images/man.png" alt="" class="profile-picture" />
             <div>
-              <p class="profile-name">پیمان احمدی</p>
-              <a href="/pages/dashboard/" class="go-to-dashboard">
+              <p class="profile-name"><%= user.name%></p>
+              <a href="#" class="go-to-dashboard">
                 ورود به پنل مدیریت
               </a>
             </div>
           </div>
+          <%}%>
           <div class="get-unlimitted">خرید اشتراک ویژه</div>
 
           <div class="search-bar">
