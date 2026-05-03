@@ -95,10 +95,48 @@ const searchInArticles = async (searchValue) => {
     next(err);
   }
 };
+const findAll = async () => {
+  const query = `SELECT 
+    a.id,
+    a.title,
+    CONCAT(SUBSTRING(a.content, 1, 200), '...') AS content,
+    a.slug,
+    a.created_at,
+    a.updated_at,
+    a.cover,
+    u.id AS user_id,
+    u.name AS user_name,
+    u.avatar AS profile
+    FROM articles a
+    JOIN users u ON
+    u.id = a.author_id
+    ORDER BY a.id DESC;`;
+
+  const [articles] = await db.execute(query);
+
+  const formattedArticles = [];
+
+  for (const article of articles) {
+    const [tags] = await db.execute(
+      `SELECT t.* FROM articles_tags ta
+    JOIN tags t ON
+    t.id = ta.tag_id
+    WHERE ta.article_id = ?`,
+      [article.id]
+    );
+
+    console.log(article);
+    console.log(tags);
+    console.log(`---------------------------------------`);
+  }
+
+  return formattedArticles;
+};
 module.exports = {
   create,
   addTag,
   deleteOne,
   findTagArticles,
   searchInArticles,
+  findAll,
 };

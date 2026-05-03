@@ -7,7 +7,8 @@ exports.home = async (req, res) => {
   if (userId) {
     user = await User.findById(userId);
   }
-
+   const articles = await Article.findAll()
+     console.log(articles);
   res.render("index.ejs", {
     user,
   });
