@@ -1,5 +1,6 @@
 const flash = require("express-flash");
 const db = require("./../db");
+const {calculateRelativeTimeDifference} = require("./../utils/funcs")
 
 const create = async ({ title, content, slug, author_id, cover }) => {
   const insertQuery =
@@ -122,12 +123,24 @@ const findAll = async () => {
     JOIN tags t ON
     t.id = ta.tag_id
     WHERE ta.article_id = ?`,
-      [article.id]
+      [article.id],
     );
 
-    console.log(article);
-    console.log(tags);
-    console.log(`---------------------------------------`);
+    formattedArticles.push({
+      id: article.id,
+      title: article.title,
+      content: article.content,
+      slug: article.slug,
+      cover: article.cover,
+      createdAt: calculateRelativeTimeDifference(article.created_at),
+      updatedAt: article.updated_at,
+      author: {
+        id: article.user_id,
+        name: article.user_name,
+        profile: article.profile,
+        tags: tags.map((tag) => tag.title),
+      },
+    });
   }
 
   return formattedArticles;
